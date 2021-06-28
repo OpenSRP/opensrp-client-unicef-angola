@@ -105,4 +105,15 @@
     <string name="yes">Sim</string>
     <string name="no">Não</string>
 
+    <!-- Sync Statistics View -->
+    <string name="synced_events">Eventos sincronizados:</string>
+    <string name="unsynced_events">Eventos não sincronizados:</string>
+    <string name="synced_clients">Clientes sincronizados:</string>
+    <string name="unsynced_clients">Clientes não sincronizados:</string>
+    <string name="validated_events">Eventos validados:</string>
+    <string name="validated_clients">Clientes validados:</string>
+    <string name="task_unprocessed_events">Eventos de tarefa não processados:</string>
+    <string name="refresh">Atualizar</string>
+    <string name="return_to_register">Retornar</string>
+    <string name="summary_forms">Outras formas</string>
 </resources>
