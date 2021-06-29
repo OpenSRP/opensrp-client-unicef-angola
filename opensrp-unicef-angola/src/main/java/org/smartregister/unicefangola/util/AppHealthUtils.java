@@ -63,7 +63,9 @@ public class AppHealthUtils {
 
                             break;
                         case 1:
-                            Utils.showToast(context, "TO DO implement " + adapter.getItem(which));
+                            if (context instanceof AppHealthUtils.HealthStatsView) {
+                                ((AppHealthUtils.HealthStatsView) context).showSyncStats();
+                            }
                             break;
                         default:
                             break;
@@ -91,5 +93,9 @@ public class AppHealthUtils {
                 //Overriden: Do nothing
             });
         }
+    }
+
+    public interface HealthStatsView {
+        void showSyncStats();
     }
 }
