@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
+import androidx.appcompat.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
@@ -17,6 +18,7 @@ import org.smartregister.AllConstants;
 import org.smartregister.child.util.Utils;
 import org.smartregister.unicefangola.BuildConfig;
 import org.smartregister.unicefangola.R;
+import org.smartregister.unicefangola.activity.ChildRegisterActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -63,8 +65,8 @@ public class AppHealthUtils {
 
                             break;
                         case 1:
-                            if (context instanceof AppHealthUtils.HealthStatsView) {
-                                ((AppHealthUtils.HealthStatsView) context).showSyncStats();
+                            if (((ContextThemeWrapper) context).getBaseContext() instanceof AppHealthUtils.HealthStatsView) {
+                                ((AppHealthUtils.HealthStatsView) ((ContextThemeWrapper) context).getBaseContext()).showSyncStats();
                             }
                             break;
                         default:
@@ -86,7 +88,7 @@ public class AppHealthUtils {
     public static void refreshFileSystem(Context context) {
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
             context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://"
-                    + Environment.getExternalStorageDirectory())));
+                    + Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS))));
 
         } else {
             MediaScannerConnection.scanFile(context, new String[]{Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath()}, null, (path, uri) -> {
