@@ -12,6 +12,7 @@ import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
 
+import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
@@ -60,6 +61,7 @@ import org.smartregister.unicefangola.repository.ChildAlertUpdatedRepository;
 import org.smartregister.unicefangola.repository.ClientRegisterTypeRepository;
 import org.smartregister.unicefangola.repository.UnicefAngolaRepository;
 import org.smartregister.unicefangola.util.AppConstants;
+import org.smartregister.unicefangola.util.AppExecutors;
 import org.smartregister.unicefangola.util.AppUtils;
 import org.smartregister.unicefangola.util.VaccineDuplicate;
 import org.smartregister.view.activity.DrishtiApplication;
@@ -90,6 +92,8 @@ public class UnicefAngolaApplication extends DrishtiApplication implements TimeC
     private ClientRegisterTypeRepository registerTypeRepository;
     private ChildAlertUpdatedRepository childAlertUpdatedRepository;
     private static List<VaccineGroup> vaccineGroups;
+
+    private AppExecutors appExecutors;
 
     public static JsonSpecHelper getJsonSpecHelper() {
         return jsonSpecHelper;
@@ -251,6 +255,7 @@ public class UnicefAngolaApplication extends DrishtiApplication implements TimeC
         ChildLibrary.getInstance().setApplicationVersionName(BuildConfig.VERSION_NAME);
         ChildLibrary.getInstance().setClientProcessorForJava(getClientProcessor());
         ChildLibrary.getInstance().getProperties().setProperty(ChildAppProperties.KEY.FEATURE_SCAN_QR_ENABLED, "true");
+        ChildLibrary.getInstance().setEventBus(EventBus.getDefault());
 
         ReportingLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         ReportingLibrary.getInstance().addMultiResultProcessor(new TripleResultProcessor());
@@ -470,5 +475,11 @@ public class UnicefAngolaApplication extends DrishtiApplication implements TimeC
         }
         return this.childAlertUpdatedRepository;
     }
-}
 
+    public AppExecutors getAppExecutors() {
+        if (appExecutors == null) {
+            appExecutors = new AppExecutors();
+        }
+        return appExecutors;
+    }
+}
